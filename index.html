@@ -1,38 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-    body{
-    height: 100%;
-    background-color: black;
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        height: 100vh;
+        font-size: 36px;
         display: flex;
         align-items: center;
+        flex-direction: column;
+        background-color: black;
+        color: #dedede;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    #header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        height: 60px;
+    }
+
+    #linoleum {
+        display: none;
+        min-height: 800px;
+        margin: 25px 0px;
+        padding: 4px 0px;
+    }
+
+    form {
+        padding: 0px 10px;
+        font-size: 36px;
+        color: #9D9D9D;
+        display: flex;
+        min-height: min(100%, 800px);
+        flex-direction: column;
+        justify-content: space-evenly;
+        max-width: 500px;
+        max-height: 1200px;
+        background-color: #1B1B1B;
+        border-radius: 9px;
+    }
+    input{
+        max-width: 130px;
+        width: 130px;
+        height: 54px;
+        font-size: 36px;
+text-align: center;        color: #E0E0E0 ;
+        border-radius: 5px;
+border: 1px solid #E0E0E0;
+background-color: #171717;    }
+    button {
+        min-width: 160px;
+        color: #adadad;
+        border: 3px solid #fff;
+        padding: 10px 20px;
+        background-color: transparent;
+        font-weight: 800;
+        border-radius: 10px;
+        font-size: x-large;
+        cursor: pointer;
+    }
+
+    button:active {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: start;
+        height: max(90vh, 650px);
+        width: 100vw;
+        /* max-width: 450px; */
+        width: 100vw;
+    }
+    .input:auto-fill {
+        background-color: white;
+    }
+
+    .inputs {
+        height: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    .inputLine {
+        display: flex;
         justify-content: center;
-        
+        align-items: end;
+        font-size: x-large;
+        color: #bfbfbf;
+        width: 100%;
+        gap: 1vw;
     }
-    .container{
-    display: flex;
-    align-items: center;
-    
-    justify-content: space-between;
-    /* background-color: aqua; */
-    align-self: center;
-    font-size: xx-large;
-    height: 500px;
-    width: 500px;
+
+
+    #btn_calc {
+        /* min-height: 31px; */
+        min-width: 160px;
+        color: #adadad;
+        border: 3px solid #fff;
+        padding: 10px 20px;
+        font-weight: 800;
+        border-radius: 10px;
+        font-size: x-large;
+        cursor: pointer;
     }
-    a{
+
+    #btn_calc:active {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .result {
+        font-size: 36px;
+        color: #E0E0E0;
+    }
+    output{
+        font-weight: 700;
+    }
+
+    .input1 {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .input-block {
+        align-items: center;
+        font-size: medium;
+        display: flex;
+        max-width: min-content;
+        flex-direction: column;
+        text-align: start;
+    }
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        align-self: center;
         font-size: xx-large;
-        color: aliceblue;
+        height: 500px;
+        width: 500px;
+    }
+
+
+    #boxes, #input_pie, .pie, #btnPlus{
+        display: none;
     }
 </style>
+<link rel="stylesheet" href="linoleumStyle.css">
+
 <body>
-    <div class="container">
-        <a href="/lincalc.html">Плитка</a> <a href="/plitka.html">Линолеум</a>
+    <div id="header" class="container">
+        <button id="plitkaBtn">Плитка</button> <button id="linoleumBtn">Линолеум</button>
     </div>
+    <div id="plitka">
+        <div class="wrapper">
+            <div class="inputs">
+                <div class="inputLine">
+                    <div class="input-block">
+                        <span>ширина(мм):</span>
+                        <input id="width" type="number" inputmode="numeric">
+                    </div>
+                    <span>
+                        ×
+                    </span>
+
+                    <div class="input-block">
+                        <span>высота(мм):</span>
+                        <input id="length" type="number" inputmode="numeric">
+                    </div>
+
+                </div>
+
+                <div class="inputLine">
+                    <div class="input-block">
+                        <input type="number" value="1" inputmode="numeric" id="qty">
+                        </input>
+                    </div>
+                     <button id="btnMultiply">×</button>
+
+
+                    <div class="input-block">
+                        <input type="number" value="1" inputmode="numeric" id="boxes">
+                        </input>
+                    </div>
+                    
+
+                    <button id="btnPlus">
+                        +
+                    </button>
+                    <div class="input-block, pie" >
+                        <span>поштучно:</span>
+                        <input type="number" value="0" inputmode="numeric" id="input_pie">
+                        </input>
+                    </div>
+                   
+
+
+
+
+                </div>
+
+
+
+            </div>
+            <output id="result">-</output>
+
+
+        </div>
+
+    </div>
+
+    <div id="linoleum">
+        <form name="calculator">
+            <div class="inputline"><span>D внешний: </span><input class="input" type="Number" name="D"
+                     value=""></div>
+            <div class="inputline"><span>d внутренний: </span><input type="Number" name="d" 
+                    value="">
+            </div>
+            <div class="inputline"><span>витки: </span><input type="number" place name="vitki" 
+                    value="">
+            </div>
+            <div class="inputline"><span>ширина рулона: </span>
+                <input class="input" id="width" type="Number" name="w" list="widths" 
+                    value="">
+                <datalist id="widths">
+                    <option value="1"></option>
+                    <option value="1.5"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                </datalist>
+            </div>
+            <div class="result">Площадь = <output id="Sresult"  ></output><span>м²</span></div>
+            <div class="result">Длина = <output id="Length"></output><span>м</span></div>
+        </form>
+    </div>
+
 </body>
+<script src="main.js"></script>
+<script src="lincalc.js"></script>
+
 </html>

@@ -1,0 +1,20 @@
+
+
+  .inputline {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  #Sresult,
+  #Length {
+    font-size: xx-large;
+
+  }
+
+
+
+  input::placeholder {
+    font-size: small;
+  }

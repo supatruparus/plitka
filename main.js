@@ -12,7 +12,7 @@ class Params {
 class Tile {
   constructor(width, height) {
     this.width = width,
-    this.height = height
+      this.height = height
   }
 }
 const maxSize = 300
@@ -23,26 +23,48 @@ const input_boxes = document.getElementById('boxes')
 const output = document.getElementById('result')
 const btn_calc = document.getElementById('btn_calc')
 const btn_showAddTile = document.getElementById('btnShowAddTile')
+const btn_multiply = document.getElementById('btnMultiply')
 const newTileElem = document.getElementById('newTile')
 const btnAddTile = document.getElementById('btnAddTile')
 const tilesListElem = document.getElementById('tiles')
-const pie = document.getElementById('pie')
+const pie = document.getElementById('input_pie')
+
+const homeBlock = document.getElementById('homeBlock')
+const plitkaBlock = document.getElementById('plitka')
+const linoleumBlock = document.getElementById('linoleum')
+const plitkaBtn = document.getElementById('plitkaBtn')
+const linoleumBtn = document.getElementById('linoleumBtn')
+
+plitkaBtn.onclick = () => {
+  plitkaBlock.style.display = 'flex'
+  linoleumBlock.style.display = 'none'
+}
+linoleumBtn.onclick = () => {
+  linoleumBlock.style.display = 'flex'
+  plitkaBlock.style.display = 'none'
+}
+
 
 let params = new Params(0, 0, 1, 1, 0);
-let tilesList = []
 
 const inputs = [input_height, input_width, input_qty, input_boxes, pie]
 inputs.forEach((elem) => elem.addEventListener('focus', () => {
   elem.select();
 })
 )
+
+btn_multiply.addEventListener('click', ()=>{
+  input_boxes.style.display = 'block'
+  btnPlus.style.display = 'inline-block'
+  console.log('click')
+})
+
 inputs.forEach((elem) => {
   elem.addEventListener('submit', () => {
 
     if (!(params.w == 0 || params.h == 0)) {
 
       if (!isRepeat(params.w, params.h)) {//если такой плитки не было
-        addTile(params.w, params.h)
         output.value = calcS(params) + 'м²'
       }
       else {//если плитка была
@@ -68,33 +90,32 @@ input_width.addEventListener('input', () => {
 
 input_qty.addEventListener('input', () => {
   params.qty = Number(event.target.value)
+      output.value = calcS(params) + 'м²'
+
   showParams()
-  output.value = '-'
+
 })
 
 
-input_boxes.addEventListener('input', () => {
-  params.boxes =Number(input_boxes.value)
-  showParams()
-  output.value = '-'
-})
-pie.addEventListener('input', () => {
-  params.pie = Number( event.target.value)
-  showParams()
-  output.value = '-'
-})
+// input_boxes.addEventListener('input', () => {
+//   params.boxes = Number(input_boxes.value)
+//   showParams()
+//   output.value = '-'
+//   input_qty.value = '-'
+//   pie.value = '-'
+// })
+// pie.addEventListener('input', () => {
+//   params.pie = Number(event.target.value)
+//   showParams()
+//   output.value = '-'
+// })
 
 
 btn_calc.addEventListener('click', () => {
   console.log(params)
   if (!(params.w == 0 || params.h == 0)) {
 
-    if (!isRepeat(params.w, params.h)) { //если такой плитки не было
-      addTile(params.w, params.h)
-      output.value = calcS(params) + 'м²'
-    } else {
-      output.value = calcS(params) + 'м²'
-    }
+    output.value = calcS(params) + 'м²'
   } else { console.log('нулевой параметр') }
 
 })
@@ -137,7 +158,7 @@ function addTile(width, height) {
     })
   })
   newTile.classList.add(['newTile'])
-  let result = Number(width)>Number(height)
+  let result = Number(width) > Number(height)
   console.log(`${width} >= ${height} ? : ${result}`)
   console.log(typeof width)
   if (result) {
@@ -163,52 +184,10 @@ function calcS(params) {
   if (params.qty == '') {
     params.qty = 0
   }
-  let result = (params.qty*params.boxes+params.pie)*params.h*params.w/ 1000000
+  let result = (params.qty * params.boxes + params.pie) * params.h * params.w / 1000000
   console.log(params)
-  console.log(`штук: ${(params.qty*params.boxes+params.pie)}`)
+  console.log(`штук: ${(params.qty * params.boxes + params.pie)}`)
   return result
 
 
-}
-
-function getSiblings(element) {
-  let siblings = [];
-  Array.from(element.parentNode.children).forEach(sibling => {
-    if (sibling !== element) {
-      siblings.push(sibling);
-    }
-  });
-  return siblings;
-}
-
-function showParams() {
-  console.log(params)
-}
-
-function isRepeat(width, height) {
-
-  let isRepeat = false
-  if (tilesList.length === 0) {
-    console.log('первая')
-    return isRepeat
-  } else {
-    for (let index = 0; index < tilesList.length; index++) {
-      const element = tilesList[index];
-      if ((element.width == height && element.height == width) || (element.width == width && element.height == height)) {
-        console.log(`width = ${element.width} height = ${element.height}`)
-        isRepeat = true
-        break;
-      } else {
-
-        isRepeat = false
-      }
-    }
-  }
-  if(isRepeat){
-    console.log('уже была')
-}else{
-  console.log('новая плитка')
-
-}
-  return isRepeat
 }
